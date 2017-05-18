@@ -16,11 +16,9 @@
 
 package com.example.android.notepad;
 
-import com.example.android.notepad.NotePad;
-
 import android.app.ListActivity;
-import android.content.ClipboardManager;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Context;
@@ -30,13 +28,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
 /**
@@ -60,10 +59,14 @@ public class NotesList extends ListActivity {
     private static final String[] PROJECTION = new String[] {
             NotePad.Notes._ID, // 0
             NotePad.Notes.COLUMN_NAME_TITLE, // 1
+            NotePad.Notes.COLUMN_NAME_CREATE_DATE, //2
     };
 
     /** The index of the title column */
     private static final int COLUMN_INDEX_TITLE = 1;
+
+    /** For Search View */
+    private SearchView mSearch;
 
     /**
      * onCreate is called when Android starts this Activity from scratch.
@@ -74,6 +77,30 @@ public class NotesList extends ListActivity {
 
         // The user does not need to hold down the key to use menu shortcuts.
         setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
+/*
+        // 显示 searchview 控件
+        setContentView(R.layout.title_search);
+        // 获取 searchview 控件
+        mSearch = (SearchView)findViewById(R.id.searchView);
+
+        if (mSearch == null) {
+            return;
+        } else {
+            // 获取 ImageView 的 id
+            int imgId = mSearch.getContext().getResources().getIdentifier("android:id/search_mag_icon", null, null);
+            // 获取到 TextView 的 ID
+            int id = mSearch.getContext().getResources().getIdentifier("android:id/search_src_text",null,null);
+            // 获取 ImageView
+            ImageView searchButton = (ImageView) mSearch.findViewById(imgId);
+            // 获取到 TextView 的控件
+            TextView textView = (TextView) mSearch.findViewById(id);
+            // 设置图片
+            searchButton.setImageResource(R.drawable.search);
+            // 不使用默认
+            mSearch.setIconifiedByDefault(false);
+            textView.setTextColor(getResources().getColor(R.color.darkgray));
+        }
+*/
 
         /* If no data is given in the Intent that started this Activity, then this Activity
          * was started when the intent filter matched a MAIN action. We should use the default
@@ -117,14 +144,20 @@ public class NotesList extends ListActivity {
          */
 
         // The names of the cursor columns to display in the view, initialized to the title column
-        String[] dataColumns = { NotePad.Notes.COLUMN_NAME_TITLE } ;
+        String[] dataColumns = {
+                NotePad.Notes.COLUMN_NAME_TITLE,
+                NotePad.Notes.COLUMN_NAME_CREATE_DATE,
+        } ;
 
         // The view IDs that will display the cursor columns, initialized to the TextView in
         // noteslist_item.xml
-        int[] viewIDs = { android.R.id.text1 };
+        int[] viewIDs = {
+                R.id.title,
+                R.id.creatTime,
+        };
 
         // Creates the backing adapter for the ListView.
-        SimpleCursorAdapter adapter
+        final SimpleCursorAdapter adapter
             = new SimpleCursorAdapter(
                       this,                             // The Context for the ListView
                       R.layout.noteslist_item,          // Points to the XML for a list item
@@ -135,6 +168,50 @@ public class NotesList extends ListActivity {
 
         // Sets the ListView's adapter to be the cursor adapter that was just created.
         setListAdapter(adapter);
+/* Search Error
+        mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            // 当点击搜索按钮时触发该方法
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            // 当搜索内容改变时触发该方法
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!TextUtils.isEmpty(newText)){
+
+                    Cursor cursor = managedQuery(
+                            getIntent().getData(),            // Use the default content URI for the provider.
+                            PROJECTION,                       // Return the note ID and title for each note.
+                                                              // 相当于where语句.
+                            NotePad.Notes.COLUMN_NAME_TITLE+ " LIKE '%"+newText+"%' ",
+                            null,                             // No where clause, therefore no where column values.
+                            NotePad.Notes.DEFAULT_SORT_ORDER  // Use the default sort order.
+                    );
+                    final String[] dataColumn = { NotePad.Notes.COLUMN_NAME_CREATE_DATE, NotePad.Notes.COLUMN_NAME_TITLE } ;
+
+                    // The view IDs that will display the cursor columns, initialized to the TextView in
+                    // noteslist_item.xml
+                    int[] viewID = {android.R.id.text1,android.R.id.text2 };
+                    SimpleCursorAdapter adapter1
+                            = new SimpleCursorAdapter(
+                            NotesList.this,                             // The Context for the ListView
+                            R.layout.noteslist_item,          // Points to the XML for a list item
+                            cursor,                           // The cursor to get items from
+                            dataColumn,
+                            viewID
+                    );
+                    //重新setListAdapter
+                    setListAdapter(adapter1);
+                }else{
+                    //恢复默认setListAdapter
+                    setListAdapter(adapter);
+                }
+                return false;
+            }
+        });
+*/
     }
 
     /**

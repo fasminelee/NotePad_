@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.notepad;
+package com.example.android.notepad.Function;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -23,6 +23,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.android.notepad.NotePad;
+import com.example.android.notepad.R;
 
 /**
  * This Activity allows the user to edit a note's title. It displays a floating window

@@ -233,7 +233,7 @@ public class NotePadProviderTest extends ProviderTestCase2<NotePadProvider> {
      * This method throws a FileNotFoundException if the URI isn't for a note ID or the MIME type
      * filter isn't "text/plain". It throws an IOException if it can't close a file descriptor.
      */
-    public void testOpenTypedAssetFile() throws FileNotFoundException, IOException {
+    public void testOpenTypedAssetFile() throws IOException {
 
         // A URI to contain a note ID content URI.
         Uri testNoteIdUri;

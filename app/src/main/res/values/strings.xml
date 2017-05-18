@@ -24,8 +24,10 @@
     <string name="title_notes_list">Notes</string>
 
     <string name="menu_add">New note</string>
+    <string name="menu_add_Image">Add Image</string>
     <string name="menu_save">Save</string>
     <string name="menu_delete">Delete</string>
+    <string name="menu_export">Export</string>
     <string name="menu_open">Open</string>
     <string name="menu_revert">Revert changes</string>
     <string name="menu_copy">Copy</string>

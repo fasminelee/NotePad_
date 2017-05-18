@@ -38,6 +38,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.example.android.notepad.Function.AddImage;
+
 /**
  * This Activity handles "editing" a note, where editing is responding to
  * {@link Intent#ACTION_VIEW} (request to view data), edit a note
@@ -60,7 +62,7 @@ public class NoteEditor extends Activity {
         new String[] {
             NotePad.Notes._ID,
             NotePad.Notes.COLUMN_NAME_TITLE,
-            NotePad.Notes.COLUMN_NAME_NOTE
+            NotePad.Notes.COLUMN_NAME_NOTE,
     };
 
     // A label for the saved state of the activity
@@ -444,6 +446,10 @@ public class NoteEditor extends Activity {
             break;
         case R.id.menu_revert:
             cancelNote();
+            break;
+        case R.id.mean_add_Image:
+//            AddImage().addImage();
+        default:
             break;
         }
         return super.onOptionsItemSelected(item);

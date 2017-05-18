@@ -123,7 +123,7 @@ public final class NotePad {
          */
         public static final String DEFAULT_SORT_ORDER = "modified DESC";
 
-        /*
+        /**
          * Column definitions
          */
 
