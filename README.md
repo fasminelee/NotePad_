@@ -3,7 +3,7 @@ This is an AndroidStudio rebuild of google SDK sample NotePad
 
 一: 时间戳
 
-View 层
+View 层 修改 noteslist_item.xml
 
 ```
 <TextView
@@ -17,7 +17,7 @@ View 层
     android:textStyle="italic"/>
 ```
 
- Controller 层
+ Controller 层 修改 NotePadProvider.java
 
 ![Image](https://github.com/fasminelee/Android_/blob/master/000-Preview/NotePadProvider.java.png)
 
