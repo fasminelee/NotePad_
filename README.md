@@ -19,6 +19,16 @@ View 层 修改 noteslist_item.xml
 
  Controller 层 修改 NotePadProvider.java
 
+```java
+// Gets the current system time in milliseconds 
+
+Long now =  Long.valueOf(System.currentTimeMillis());
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+```
+
+
+
 ![Image](https://github.com/fasminelee/Android_/blob/master/000-Preview/NotePadProvider.java.png)
 
 ### 二: 模糊查询🔍 核心代码
